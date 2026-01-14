@@ -1,0 +1,46 @@
+{
+  "name": "ai-marketing-specialist",
+  "version": "1.0.0",
+  "description": "IA Especialista em Marketing Digital - Gerencia campanhas, otimiza sites e monitora performance automaticamente",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:staging": "wrangler deploy --env staging",
+    "deploy:production": "wrangler deploy --env production",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint src/",
+    "format": "prettier --write src/",
+    "db:migrate": "wrangler d1 migrations apply ai-marketing-db",
+    "db:migrate:staging": "wrangler d1 migrations apply ai-marketing-db --env staging",
+    "db:migrate:production": "wrangler d1 migrations apply ai-marketing-db --env production"
+  },
+  "keywords": [
+    "ai",
+    "marketing",
+    "automation",
+    "cloudflare",
+    "workers",
+    "meta-ads",
+    "google-ads",
+    "ga4",
+    "seo"
+  ],
+  "author": "Planac Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250110.0",
+    "@types/node": "^22.10.5",
+    "eslint": "^9.18.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8",
+    "wrangler": "^3.101.0"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^1.0.10",
+    "hono": "^4.7.11"
+  }
+}

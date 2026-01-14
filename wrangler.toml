@@ -1,0 +1,90 @@
+name = "ai-marketing-specialist"
+main = "src/index.js"
+compatibility_date = "2026-01-14"
+compatibility_flags = ["nodejs_compat"]
+
+# Account ID (substituir pelo seu)
+account_id = "YOUR_CLOUDFLARE_ACCOUNT_ID"
+
+# Workers AI
+[ai]
+binding = "AI"
+
+# D1 Database
+[[d1_databases]]
+binding = "DB"
+database_name = "ai-marketing-db"
+database_id = "YOUR_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+# KV Namespaces
+[[kv_namespaces]]
+binding = "CACHE"
+id = "YOUR_KV_NAMESPACE_ID"
+
+[[kv_namespaces]]
+binding = "CONFIG"
+id = "YOUR_CONFIG_KV_ID"
+
+# R2 Buckets
+[[r2_buckets]]
+binding = "STORAGE"
+bucket_name = "ai-marketing-storage"
+
+# Vectorize Index
+[[vectorize]]
+binding = "VECTORIZE"
+index_name = "knowledge-base"
+
+# Environment Variables (não sensíveis)
+[vars]
+ENVIRONMENT = "development"
+LOG_LEVEL = "debug"
+
+# Cron Triggers
+[triggers]
+crons = [
+  "0 */6 * * *",    # A cada 6 horas - Monitorar campanhas
+  "0 0 * * *",      # Diariamente à meia-noite - Atualizar conhecimento
+  "0 8 * * 1"       # Segundas às 8h - Relatório semanal
+]
+
+# Staging Environment
+[env.staging]
+name = "ai-marketing-specialist-staging"
+vars = { ENVIRONMENT = "staging", LOG_LEVEL = "info" }
+
+[[env.staging.d1_databases]]
+binding = "DB"
+database_name = "ai-marketing-db-staging"
+database_id = "YOUR_D1_STAGING_ID"
+
+[[env.staging.kv_namespaces]]
+binding = "CACHE"
+id = "YOUR_KV_STAGING_ID"
+
+[[env.staging.r2_buckets]]
+binding = "STORAGE"
+bucket_name = "ai-marketing-storage-staging"
+
+# Production Environment
+[env.production]
+name = "ai-marketing-specialist-prod"
+vars = { ENVIRONMENT = "production", LOG_LEVEL = "warn" }
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "ai-marketing-db-prod"
+database_id = "YOUR_D1_PROD_ID"
+
+[[env.production.kv_namespaces]]
+binding = "CACHE"
+id = "YOUR_KV_PROD_ID"
+
+[[env.production.r2_buckets]]
+binding = "STORAGE"
+bucket_name = "ai-marketing-storage-prod"
+
+# Limits
+[limits]
+cpu_ms = 50000  # 50 segundos (Unbound Worker)
