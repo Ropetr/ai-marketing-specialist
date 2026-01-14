@@ -4,7 +4,7 @@ compatibility_date = "2026-01-14"
 compatibility_flags = ["nodejs_compat"]
 
 # Account ID (substituir pelo seu)
-account_id = "YOUR_CLOUDFLARE_ACCOUNT_ID"
+account_id = "f14d821b52a4f6ecbad7fb0e0afba8e5"
 
 # Workers AI
 [ai]
