@@ -1,0 +1,32 @@
+name: Knowledge Auto-Update
+
+on:
+  schedule:
+    # Diariamente às 2h UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-updates:
+    name: Check for Documentation Updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check for platform updates
+        run: |
+          echo "Checking for updates in platform documentation..."
+          echo "This will trigger the Worker's knowledge updater"
+
+      - name: Trigger knowledge update
+        run: |
+          curl -X POST https://ai-marketing-specialist.workers.dev/internal/knowledge/update \
+            -H "Authorization: Bearer ${{ secrets.WORKER_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{"source": "github-action", "trigger": "scheduled"}'
